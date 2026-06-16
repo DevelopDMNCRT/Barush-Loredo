@@ -57,7 +57,7 @@ const notes = ref<any[]>([])
 const isModalOpen = ref(false)
 const selectedNote = ref<any>(null)
 
-const API_URL = 'http://localhost:5005/api/notes'
+const API_URL = `${import.meta.env.VITE_API_URL || 'http://localhost:5005'}/api/notes`
 
 const fetchNotes = async () => {
   try {

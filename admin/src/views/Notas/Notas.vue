@@ -158,7 +158,7 @@ const filePreviews = ref<{file?: File, url: string, isExisting?: boolean}[]>([])
 const searchQueryTitle = ref('')
 const searchQueryDate = ref('')
 
-const API_URL = 'http://localhost:5005/api/notes'
+const API_URL = `${import.meta.env.VITE_API_URL || 'http://localhost:5005'}/api/notes`
 
 const form = ref({
   id: null as number | null,

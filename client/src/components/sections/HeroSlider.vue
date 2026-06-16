@@ -36,7 +36,7 @@ const images = ref<any[]>([])
 const currentSlide = ref(0)
 let timer: any = null
 
-const API_URL = 'http://localhost:5005/api/sliders'
+const API_URL = `${import.meta.env.VITE_API_URL || 'http://localhost:5005'}/api/sliders`
 
 const fetchSliders = async () => {
   try {

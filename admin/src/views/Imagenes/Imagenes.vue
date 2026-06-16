@@ -95,7 +95,7 @@ const isSaving = ref(false)
 const error = ref('')
 const filePreviews = ref<{file: File, url: string}[]>([])
 
-const API_URL = 'http://localhost:5005/api/sliders'
+const API_URL = `${import.meta.env.VITE_API_URL || 'http://localhost:5005'}/api/sliders`
 
 const handleFileChange = (e: Event) => {
   const target = e.target as HTMLInputElement;

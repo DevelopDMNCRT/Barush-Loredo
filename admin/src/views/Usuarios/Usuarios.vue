@@ -186,7 +186,7 @@ const form = ref({
   confirmPassword: ''
 })
 
-const API_URL = 'http://localhost:5005/api/users'
+const API_URL = `${import.meta.env.VITE_API_URL || 'http://localhost:5005'}/api/users`
 
 const fetchUsers = async () => {
   try {
