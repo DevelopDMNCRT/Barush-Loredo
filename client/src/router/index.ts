@@ -10,7 +10,7 @@ const router = createRouter({
       component: HomeView
     }
   ],
-  scrollBehavior(to, from, savedPosition) {
+  scrollBehavior(to, from, _savedPosition) {
     // Si la página se acaba de recargar (from.name es undefined), forzar ir arriba
     if (!from.name) {
       // Opcional: limpiar el hash de la URL si lo desean
