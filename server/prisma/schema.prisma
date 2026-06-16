@@ -1,0 +1,33 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id // Asignado manualmente de 4 dígitos
+  name      String
+  role      String
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Note {
+  id        Int      @id @default(autoincrement())
+  title     String
+  body      String   @db.Text
+  images    String[] // URLs o rutas de las imágenes
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model SliderImage {
+  id        Int      @id @default(autoincrement())
+  url       String
+  createdAt DateTime @default(now())
+}
