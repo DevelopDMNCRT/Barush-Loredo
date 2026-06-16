@@ -23,6 +23,10 @@ app.use('/api/users', userRoutes);
 app.use('/api/notes', noteRoutes);
 app.use('/api/sliders', sliderRoutes);
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
+}
+
+export default app;
