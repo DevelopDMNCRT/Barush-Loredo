@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import userRoutes from './routes/user.routes';
 import noteRoutes from './routes/note.routes';
 import sliderRoutes from './routes/slider.routes';
+import authRoutes from './routes/auth.routes';
 
 import path from 'path';
 
@@ -19,6 +20,7 @@ app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Routes
+app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/notes', noteRoutes);
 app.use('/api/sliders', sliderRoutes);

@@ -125,7 +125,8 @@ const router = createRouter({
       name: 'Signin',
       component: () => import('../views/Auth/Signin.vue'),
       meta: {
-        title: 'Signin',
+        title: 'Iniciar Sesión',
+        public: true,
       },
     },
     {
@@ -166,6 +167,18 @@ const router = createRouter({
 export default router
 
 router.beforeEach((to, from, next) => {
-  document.title = `${to.meta.title} | Barush Loredo`
+  document.title = `${to.meta.title || 'Admin'} | Barush Loredo`
+
+  const isPublic = to.meta.public === true
+  const token = localStorage.getItem('token')
+
+  if (!isPublic && !token) {
+    return next('/signin')
+  }
+
+  if (to.path === '/signin' && token) {
+    return next('/usuarios')
+  }
+
   next()
 })
