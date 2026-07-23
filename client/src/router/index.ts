@@ -1,5 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import Home from '../views/Home.vue'
+import About from '../views/About.vue'
+import Blog from '../views/Blog.vue'
+import BlogPost from '../views/BlogPost.vue'
+import Gallery from '../views/Gallery.vue'
+import Contact from '../views/Contact.vue'
+import Report from '../views/Report.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -7,13 +13,41 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      component: Home
+    },
+    {
+      path: '/about',
+      name: 'about',
+      component: About
+    },
+    {
+      path: '/blog',
+      name: 'blog',
+      component: Blog
+    },
+    {
+      path: '/blog/:id',
+      name: 'blog-post',
+      component: BlogPost
+    },
+    {
+      path: '/gallery',
+      name: 'gallery',
+      component: Gallery
+    },
+    {
+      path: '/contact',
+      name: 'contact',
+      component: Contact
+    },
+    {
+      path: '/informe',
+      name: 'informe',
+      component: Report
     }
   ],
   scrollBehavior(to, from, _savedPosition) {
-    // Si la página se acaba de recargar (from.name es undefined), forzar ir arriba
     if (!from.name) {
-      // Opcional: limpiar el hash de la URL si lo desean
       if (window.location.hash) {
         history.replaceState(null, '', window.location.pathname)
       }
