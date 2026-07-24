@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import { ArrowLeft, Calendar, Share2 } from 'lucide-vue-next';
-import { useRoute } from 'vue-router';
 
-// In a real app, you would fetch data based on route.params.id
-const route = useRoute();
+// In a real app, you would fetch data based on the route ID
 </script>
 
 <template>
