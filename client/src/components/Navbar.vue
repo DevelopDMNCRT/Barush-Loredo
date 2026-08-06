@@ -24,9 +24,7 @@ const navigation = [
         <div class="flex items-center">
           <router-link to="/" class="flex-shrink-0 flex items-center gap-3">
             <!-- Political Logo/Name -->
-            <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-primary font-bold text-xl shadow-md border border-secondary">
-              E
-            </div>
+            <img src="/favicon-candidato.ico" alt="Logo Edgar Barush" class="w-10 h-10 object-contain bg-white rounded-full shadow-md border border-secondary" />
             <span class="font-bold text-2xl tracking-tight uppercase">Edgar Barush</span>
           </router-link>
         </div>
