@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ArrowRight, CheckCircle2, ChevronRight, Newspaper } from 'lucide-vue-next';
+import { ArrowRight, Newspaper } from 'lucide-vue-next';
 </script>
 
 <template>
@@ -44,63 +44,6 @@ import { ArrowRight, CheckCircle2, ChevronRight, Newspaper } from 'lucide-vue-ne
             <div class="relative w-full aspect-[3/4] bg-white/10 rounded-3xl border-4 border-secondary/30 overflow-hidden shadow-2xl flex items-center justify-center backdrop-blur-sm">
               <img src="/candidato.jpeg" alt="Lic. Edgar Barush Loredo Arizaga" class="w-full h-full object-cover object-center" />
             </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Propuestas / Ejes Section -->
-    <section class="py-20 bg-light">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-16">
-          <h2 class="text-primary font-bold text-3xl md:text-4xl uppercase tracking-tight mb-4">Nuestros Ejes de Acción</h2>
-          <div class="w-24 h-1.5 bg-secondary mx-auto mb-6"></div>
-          <p class="text-gray-600 max-w-2xl mx-auto text-lg">
-            Basamos nuestro proyecto en pilares fundamentales para garantizar el desarrollo equitativo de nuestras familias.
-          </p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <!-- Card 1 -->
-          <div class="bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-shadow border-t-4 border-primary group">
-            <div class="w-14 h-14 bg-primary/10 text-primary rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-              <CheckCircle2 class="w-8 h-8" />
-            </div>
-            <h3 class="text-xl font-bold text-dark mb-3">Bienestar para Todos</h3>
-            <p class="text-gray-600 mb-6 line-clamp-3">
-              Programas sociales directos y sin intermediarios para las familias que más lo necesitan. Primero los pobres.
-            </p>
-            <router-link to="/about" class="text-primary font-semibold flex items-center gap-1 hover:text-secondary transition-colors">
-              Leer más <ChevronRight class="w-4 h-4" />
-            </router-link>
-          </div>
-          
-          <!-- Card 2 -->
-          <div class="bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-shadow border-t-4 border-primary group">
-            <div class="w-14 h-14 bg-primary/10 text-primary rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-              <CheckCircle2 class="w-8 h-8" />
-            </div>
-            <h3 class="text-xl font-bold text-dark mb-3">Seguridad y Paz</h3>
-            <p class="text-gray-600 mb-6 line-clamp-3">
-              Atender las causas de la violencia con oportunidades para jóvenes y una estrategia de seguridad coordinada.
-            </p>
-            <router-link to="/about" class="text-primary font-semibold flex items-center gap-1 hover:text-secondary transition-colors">
-              Leer más <ChevronRight class="w-4 h-4" />
-            </router-link>
-          </div>
-
-          <!-- Card 3 -->
-          <div class="bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-shadow border-t-4 border-primary group">
-            <div class="w-14 h-14 bg-primary/10 text-primary rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-              <CheckCircle2 class="w-8 h-8" />
-            </div>
-            <h3 class="text-xl font-bold text-dark mb-3">Desarrollo Económico</h3>
-            <p class="text-gray-600 mb-6 line-clamp-3">
-              Impulso a la economía local, apoyo a pequeños productores y defensa de la soberanía nacional.
-            </p>
-            <router-link to="/about" class="text-primary font-semibold flex items-center gap-1 hover:text-secondary transition-colors">
-              Leer más <ChevronRight class="w-4 h-4" />
-            </router-link>
           </div>
         </div>
       </div>

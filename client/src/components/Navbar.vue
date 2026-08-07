@@ -12,7 +12,6 @@ const navigation = [
   { name: 'Inicio', href: '/' },
   { name: 'Acerca de Mí', href: '/about' },
   { name: 'Blog', href: '/blog' },
-  { name: 'Fotos', href: '/gallery' },
   { name: 'Contacto', href: '/contact' },
 ];
 </script>

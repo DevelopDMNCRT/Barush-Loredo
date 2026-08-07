@@ -40,7 +40,6 @@ import { Facebook, Twitter, Instagram, Youtube, Mail, Phone, MapPin } from 'luci
             <li><router-link to="/" class="text-gray-400 hover:text-secondary transition-colors text-sm">Inicio</router-link></li>
             <li><router-link to="/about" class="text-gray-400 hover:text-secondary transition-colors text-sm">Acerca de Mí</router-link></li>
             <li><router-link to="/blog" class="text-gray-400 hover:text-secondary transition-colors text-sm">Blog y Noticias</router-link></li>
-            <li><router-link to="/gallery" class="text-gray-400 hover:text-secondary transition-colors text-sm">Fotos de Campaña</router-link></li>
           </ul>
         </div>
 

@@ -3,7 +3,6 @@ import Home from '../views/Home.vue'
 import About from '../views/About.vue'
 import Blog from '../views/Blog.vue'
 import BlogPost from '../views/BlogPost.vue'
-import Gallery from '../views/Gallery.vue'
 import Contact from '../views/Contact.vue'
 import Report from '../views/Report.vue'
 
@@ -29,11 +28,6 @@ const router = createRouter({
       path: '/blog/:id',
       name: 'blog-post',
       component: BlogPost
-    },
-    {
-      path: '/gallery',
-      name: 'gallery',
-      component: Gallery
     },
     {
       path: '/contact',
