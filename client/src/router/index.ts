@@ -44,6 +44,11 @@ const router = createRouter({
       path: '/informe',
       name: 'informe',
       component: Report
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'not-found',
+      redirect: '/'
     }
   ],
   scrollBehavior(to, from, _savedPosition) {
