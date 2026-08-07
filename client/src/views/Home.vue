@@ -21,7 +21,7 @@ import { ArrowRight, CheckCircle2, ChevronRight, Newspaper } from 'lucide-vue-ne
               Regidor del H. Ayuntamiento de Zamora
             </span>
             <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight mb-6 leading-tight">
-              Por la <span class="text-secondary">Transformación</span> que nuestro estado merece.
+              Por la <span class="text-secondary">Transformación</span> que nuestro municipio de Zamora merece.
             </h1>
             <p class="text-lg md:text-xl text-gray-200 mb-8 max-w-2xl font-light">
               Con honestidad, cercanía al pueblo y resultados comprobados. Vamos juntos a seguir haciendo historia.
