@@ -126,7 +126,7 @@ function triggerPrint() {
         </span>
         <h1 class="text-3xl md:text-6xl font-black text-white mb-4 tracking-tight uppercase leading-tight">
           Segundo Informe de Actividades <br/>
-          <span class="text-secondary font-light text-2xl md:text-4xl">Regidor Lic. Edgar Barush Loredo Arizaga</span>
+          <span class="text-secondary font-light text-2xl md:text-4xl">Regidor Lic. Barush Loredo Arizaga</span>
         </h1>
         <div class="w-24 h-1 bg-secondary mx-auto mb-6 rounded-full"></div>
         <p class="text-gray-200 text-lg md:text-xl max-w-3xl mx-auto mb-8 font-light leading-relaxed">
@@ -292,7 +292,7 @@ function triggerPrint() {
             <div class="flex items-center gap-4 pt-4 border-t border-white/10">
               <img src="/informe_pages/page_2.jpg" alt="Página Mensaje" class="w-14 h-18 object-cover rounded-lg border border-white/20 shadow-md cursor-pointer" @click="openModal(REPORT_PAGES[1])" />
               <div>
-                <div class="font-bold text-white">Lic. Edgar Barush Loredo Arizaga</div>
+                <div class="font-bold text-white">Lic. Barush Loredo Arizaga</div>
                 <div class="text-sm text-secondary font-medium">Regidor del Ayuntamiento de Zamora</div>
               </div>
             </div>

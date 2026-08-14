@@ -81,7 +81,7 @@ onMounted(() => {
             <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-white/5 rounded-full blur-3xl"></div>
             <!-- Candidate Image -->
             <div class="relative w-full aspect-[3/4] bg-white/10 rounded-3xl border-4 border-secondary/30 overflow-hidden shadow-2xl flex items-center justify-center backdrop-blur-sm">
-              <img src="/candidato.jpeg" alt="Lic. Edgar Barush Loredo Arizaga" class="w-full h-full object-cover object-center" />
+              <img src="/candidato.jpeg" alt="Lic. Barush Loredo Arizaga" class="w-full h-full object-cover object-center" />
             </div>
           </div>
         </div>

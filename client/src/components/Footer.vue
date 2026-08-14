@@ -9,8 +9,8 @@ import { Facebook, Instagram, Mail, Phone, MapPin } from 'lucide-vue-next';
         <!-- Logo and About -->
         <div class="col-span-1 md:col-span-1">
           <div class="flex items-center gap-3 mb-6">
-            <img src="/favicon-candidato.ico" alt="Logo Edgar Barush" class="w-12 h-12 object-contain bg-white rounded-full shadow-md border-2 border-secondary" />
-            <span class="font-bold text-2xl uppercase tracking-tight text-white">Edgar Barush</span>
+            <img src="/favicon-candidato.ico" alt="Logo Barush Loredo" class="w-12 h-12 object-contain bg-white rounded-full shadow-md border-2 border-secondary" />
+            <span class="font-bold text-2xl uppercase tracking-tight text-white">Barush Loredo</span>
           </div>
           <p class="text-gray-400 text-sm leading-relaxed mb-6">
             Luchando por el bienestar de todos. Un proyecto de transformación que nace del pueblo y para el pueblo. Con honestidad y resultados.
@@ -70,7 +70,7 @@ import { Facebook, Instagram, Mail, Phone, MapPin } from 'lucide-vue-next';
 
       <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
         <p class="text-sm text-gray-500">
-          &copy; {{ new Date().getFullYear() }} Edgar Barush Loredo Arizaga. Todos los derechos reservados.
+          &copy; {{ new Date().getFullYear() }} Barush Loredo Arizaga. Todos los derechos reservados.
         </p>
         <div class="flex space-x-6 text-sm text-gray-500">
           <router-link to="/privacidad" class="hover:text-white transition-colors">Aviso de Privacidad</router-link>

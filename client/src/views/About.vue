@@ -21,14 +21,14 @@ import { Target, Users, BookOpen, Flag } from 'lucide-vue-next';
           <div class="relative">
             <div class="w-full aspect-[4/5] bg-gray-300 rounded-3xl shadow-xl overflow-hidden relative">
               <div class="absolute inset-0 bg-primary/20 mix-blend-multiply pointer-events-none"></div>
-              <img src="/candidato.jpeg" alt="Lic. Edgar Barush Loredo Arizaga" class="w-full h-full object-cover object-center" />
+              <img src="/candidato.jpeg" alt="Lic. Barush Loredo Arizaga" class="w-full h-full object-cover object-center" />
             </div>
             <!-- Decorator -->
             <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-secondary rounded-full -z-10"></div>
           </div>
           
           <div>
-            <h2 class="text-3xl font-bold text-primary mb-6">Lic. Edgar Barush Loredo Arizaga</h2>
+            <h2 class="text-3xl font-bold text-primary mb-6">Lic. Barush Loredo Arizaga</h2>
             <p class="text-gray-600 text-lg mb-6 leading-relaxed">
               Actualmente desempeño el cargo de <strong>Regidor de la comisión de Ciencia, Tecnología e Innovación del H. Ayuntamiento de Zamora</strong> para el periodo 2024-2027. Soy Licenciado en Derecho por el Instituto Tecnológico de Guadalajara y Socio Director del Buffet jurídico Loredo y Asociados.
             </p>
