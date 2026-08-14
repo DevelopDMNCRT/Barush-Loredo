@@ -81,8 +81,8 @@ import { Send, MapPin, Phone, Mail } from 'lucide-vue-next';
                     <MapPin class="w-6 h-6" />
                   </div>
                   <div>
-                    <h3 class="font-bold text-xl mb-1">Casa de Campaña</h3>
-                    <p class="text-gray-400">Av. de la Transformación #123<br/>Colonia Centro, C.P. 00000</p>
+                    <h3 class="font-bold text-xl mb-1">Oficina Enlace</h3>
+                    <p class="text-gray-400">Colón 202,<br/>Zamora, Michoacán</p>
                   </div>
                 </div>
                 
@@ -92,7 +92,7 @@ import { Send, MapPin, Phone, Mail } from 'lucide-vue-next';
                   </div>
                   <div>
                     <h3 class="font-bold text-xl mb-1">Teléfono</h3>
-                    <p class="text-gray-400">55 1234 5678</p>
+                    <p class="text-gray-400">+52 1 351 405 3079</p>
                   </div>
                 </div>
                 
