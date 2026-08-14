@@ -18,16 +18,16 @@ import { Facebook, Twitter, Instagram, Youtube, Mail, Phone, MapPin } from 'luci
             Luchando por el bienestar de todos. Un proyecto de transformación que nace del pueblo y para el pueblo. Con honestidad y resultados.
           </p>
           <div class="flex space-x-4">
-            <a href="#" class="text-gray-400 hover:text-secondary transition-colors">
+            <a href="#" @click.prevent class="text-gray-400 hover:text-secondary transition-colors">
               <Facebook class="w-5 h-5" />
             </a>
-            <a href="#" class="text-gray-400 hover:text-secondary transition-colors">
+            <a href="#" @click.prevent class="text-gray-400 hover:text-secondary transition-colors">
               <Twitter class="w-5 h-5" />
             </a>
-            <a href="#" class="text-gray-400 hover:text-secondary transition-colors">
+            <a href="#" @click.prevent class="text-gray-400 hover:text-secondary transition-colors">
               <Instagram class="w-5 h-5" />
             </a>
-            <a href="#" class="text-gray-400 hover:text-secondary transition-colors">
+            <a href="#" @click.prevent class="text-gray-400 hover:text-secondary transition-colors">
               <Youtube class="w-5 h-5" />
             </a>
           </div>
@@ -76,8 +76,8 @@ import { Facebook, Twitter, Instagram, Youtube, Mail, Phone, MapPin } from 'luci
           &copy; {{ new Date().getFullYear() }} Edgar Barush Loredo Arizaga. Todos los derechos reservados.
         </p>
         <div class="flex space-x-6 text-sm text-gray-500">
-          <a href="#" class="hover:text-white transition-colors">Aviso de Privacidad</a>
-          <a href="#" class="hover:text-white transition-colors">Términos de Uso</a>
+          <a href="#" @click.prevent class="hover:text-white transition-colors">Aviso de Privacidad</a>
+          <a href="#" @click.prevent class="hover:text-white transition-colors">Términos de Uso</a>
         </div>
       </div>
     </div>
