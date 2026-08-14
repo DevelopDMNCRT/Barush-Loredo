@@ -64,7 +64,7 @@ import { ArrowRight, Newspaper } from 'lucide-vue-next';
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
           <!-- Article 1 -->
-          <article class="flex flex-col sm:flex-row gap-6 group cursor-pointer">
+          <router-link to="/blog" class="flex flex-col sm:flex-row gap-6 group cursor-pointer">
             <div class="w-full sm:w-1/3 aspect-video sm:aspect-square bg-gray-200 rounded-xl overflow-hidden relative flex-shrink-0">
                <div class="absolute inset-0 bg-primary/20 group-hover:bg-transparent transition-colors z-10"></div>
                <div class="w-full h-full flex items-center justify-center text-gray-400">IMAGEN</div>
@@ -81,10 +81,10 @@ import { ArrowRight, Newspaper } from 'lucide-vue-next';
               </p>
               <span class="text-sm text-gray-500 font-medium">15 Octubre, 2026</span>
             </div>
-          </article>
+          </router-link>
 
           <!-- Article 2 -->
-          <article class="flex flex-col sm:flex-row gap-6 group cursor-pointer">
+          <router-link to="/blog" class="flex flex-col sm:flex-row gap-6 group cursor-pointer">
             <div class="w-full sm:w-1/3 aspect-video sm:aspect-square bg-gray-200 rounded-xl overflow-hidden relative flex-shrink-0">
                <div class="absolute inset-0 bg-primary/20 group-hover:bg-transparent transition-colors z-10"></div>
                <div class="w-full h-full flex items-center justify-center text-gray-400">IMAGEN</div>
@@ -101,7 +101,7 @@ import { ArrowRight, Newspaper } from 'lucide-vue-next';
               </p>
               <span class="text-sm text-gray-500 font-medium">10 Octubre, 2026</span>
             </div>
-          </article>
+          </router-link>
         </div>
         
         <div class="mt-10 text-center md:hidden">

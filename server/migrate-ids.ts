@@ -17,7 +17,7 @@ async function main() {
       }
 
       await prisma.$executeRaw`UPDATE "User" SET id = ${newId} WHERE id = ${user.id}`;
-      console.log(`Updated user ${user.username} from ID ${user.id} to ${newId}`);
+      console.log(`Updated user ${user.name} from ID ${user.id} to ${newId}`);
     }
   } catch (e) {
     console.error(e);

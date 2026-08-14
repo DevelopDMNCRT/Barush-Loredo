@@ -1,5 +1,16 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import { Newspaper, Calendar } from 'lucide-vue-next';
+
+const currentPage = ref(1);
+const totalPages = ref(3);
+
+const goToPage = (page: number) => {
+  if (page >= 1 && page <= totalPages.value) {
+    currentPage.value = page;
+    window.scrollTo({ top: 300, behavior: 'smooth' });
+  }
+};
 </script>
 
 <template>
@@ -105,15 +116,40 @@ import { Newspaper, Calendar } from 'lucide-vue-next';
 
         </div>
         
-        <!-- Pagination (Static for now) -->
+        <!-- Interactive Pagination -->
         <div class="mt-16 flex justify-center">
           <nav class="flex items-center gap-2">
-            <button class="px-4 py-2 rounded-lg border border-gray-300 text-gray-500 hover:bg-gray-100 disabled:opacity-50" disabled>Anterior</button>
-            <button class="w-10 h-10 rounded-lg bg-primary text-white font-bold shadow-md">1</button>
-            <button class="w-10 h-10 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100 font-bold">2</button>
-            <button class="w-10 h-10 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100 font-bold">3</button>
+            <button 
+              @click="goToPage(currentPage - 1)" 
+              :disabled="currentPage === 1"
+              class="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            >
+              Anterior
+            </button>
+            
+            <button 
+              v-for="page in totalPages" 
+              :key="page"
+              @click="goToPage(page)"
+              :class="[
+                'w-10 h-10 rounded-lg font-bold transition-all',
+                currentPage === page 
+                  ? 'bg-primary text-white shadow-md' 
+                  : 'border border-gray-300 text-gray-700 hover:bg-gray-100'
+              ]"
+            >
+              {{ page }}
+            </button>
+
             <span class="px-2 text-gray-500">...</span>
-            <button class="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100 font-medium">Siguiente</button>
+
+            <button 
+              @click="goToPage(currentPage + 1)"
+              :disabled="currentPage === totalPages"
+              class="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            >
+              Siguiente
+            </button>
           </nav>
         </div>
       </div>
