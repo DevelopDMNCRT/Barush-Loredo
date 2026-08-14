@@ -4,7 +4,7 @@
       class="flex items-center text-gray-700 dark:text-gray-400"
       @click.prevent="toggleDropdown"
     >
-      <span class="block mr-1 font-medium text-theme-sm">Musharof </span>
+      <span class="block mr-1 font-medium text-theme-sm">{{ currentUser.name }}</span>
 
       <ChevronDownIcon :class="{ 'rotate-180': dropdownOpen }" />
     </button>
@@ -16,10 +16,10 @@
     >
       <div>
         <span class="block font-medium text-gray-700 text-theme-sm dark:text-gray-400">
-          Musharof Chowdhury
+          {{ currentUser.name }}
         </span>
         <span class="mt-0.5 block text-theme-xs text-gray-500 dark:text-gray-400">
-          randomuser@pimjo.com
+          {{ currentUser.email }}
         </span>
       </div>
 
@@ -29,7 +29,6 @@
             :to="item.href"
             class="flex items-center gap-3 px-3 py-2 font-medium text-gray-700 rounded-lg group text-theme-sm hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300"
           >
-            <!-- SVG icon would go here -->
             <component
               :is="item.icon"
               class="text-gray-500 group-hover:text-gray-700 dark:group-hover:text-gray-300"
@@ -38,33 +37,48 @@
           </router-link>
         </li>
       </ul>
-      <router-link
-        to="/signin"
+      <button
+        type="button"
         @click="signOut"
-        class="flex items-center gap-3 px-3 py-2 mt-3 font-medium text-gray-700 rounded-lg group text-theme-sm hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300"
+        class="flex items-center gap-3 px-3 py-2 mt-3 font-medium text-gray-700 rounded-lg group text-theme-sm hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300 w-full text-left"
       >
         <LogoutIcon
           class="text-gray-500 group-hover:text-gray-700 dark:group-hover:text-gray-300"
         />
-        Sign out
-      </router-link>
+        Cerrar sesión
+      </button>
     </div>
     <!-- Dropdown End -->
   </div>
 </template>
 
 <script setup>
-import { UserCircleIcon, ChevronDownIcon, LogoutIcon, SettingsIcon, InfoCircleIcon } from '@/icons'
-import { RouterLink } from 'vue-router'
+import { UserCircleIcon, ChevronDownIcon, LogoutIcon } from '@/icons'
+import { RouterLink, useRouter } from 'vue-router'
 import { ref, onMounted, onUnmounted } from 'vue'
 
+const router = useRouter()
 const dropdownOpen = ref(false)
 const dropdownRef = ref(null)
 
+const currentUser = ref({
+  name: 'Administrador',
+  email: 'admin@barush.com'
+})
+
+const loadUser = () => {
+  const storedUser = localStorage.getItem('user')
+  if (storedUser) {
+    try {
+      currentUser.value = JSON.parse(storedUser)
+    } catch (e) {
+      console.error('Failed to parse user from localStorage', e)
+    }
+  }
+}
+
 const menuItems = [
-  { href: '/profile', icon: UserCircleIcon, text: 'Edit profile' },
-  { href: '/chat', icon: SettingsIcon, text: 'Account settings' },
-  { href: '/profile', icon: InfoCircleIcon, text: 'Support' },
+  { href: '/profile', icon: UserCircleIcon, text: 'Editar Perfil' },
 ]
 
 const toggleDropdown = () => {
@@ -76,9 +90,10 @@ const closeDropdown = () => {
 }
 
 const signOut = () => {
-  // Implement sign out logic here
-  console.log('Signing out...')
+  localStorage.removeItem('token')
+  localStorage.removeItem('user')
   closeDropdown()
+  router.push('/signin')
 }
 
 const handleClickOutside = (event) => {
@@ -88,6 +103,7 @@ const handleClickOutside = (event) => {
 }
 
 onMounted(() => {
+  loadUser()
   document.addEventListener('click', handleClickOutside)
 })
 
