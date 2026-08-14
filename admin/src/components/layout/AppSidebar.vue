@@ -14,25 +14,31 @@
     @mouseleave="isHovered = false"
   >
     <div class="py-8 flex w-full justify-center">
-      <router-link to="/">
-        <img
-          v-if="isExpanded || isHovered || isMobileOpen"
-          class="dark:hidden h-20 sm:h-24 md:h-28 w-auto object-contain mx-auto"
-          src="/LogoBrush.jpeg"
-          alt="Logo"
-        />
-        <img
-          v-if="isExpanded || isHovered || isMobileOpen"
-          class="hidden dark:block h-20 sm:h-24 md:h-28 w-auto object-contain mx-auto"
-          src="/LogoBrush.jpeg"
-          alt="Logo"
-        />
-        <img
-          v-else
-          src="/LogoBrush.jpeg"
-          alt="Logo"
-          class="w-8 h-8 object-contain"
-        />
+      <router-link to="/" class="inline-block relative">
+        <template v-if="isExpanded || isHovered || isMobileOpen">
+          <img
+            class="h-20 sm:h-24 md:h-28 w-auto object-contain mx-auto dark:hidden mix-blend-multiply transition-opacity duration-300"
+            src="/LogoBrush.jpeg"
+            alt="Logo"
+          />
+          <img
+            class="h-20 sm:h-24 md:h-28 w-auto object-contain mx-auto hidden dark:block invert grayscale brightness-150 mix-blend-screen transition-opacity duration-300"
+            src="/LogoBrush.jpeg"
+            alt="Logo"
+          />
+        </template>
+        <template v-else>
+          <img
+            src="/LogoBrush.jpeg"
+            alt="Logo"
+            class="w-8 h-8 object-contain mx-auto dark:hidden mix-blend-multiply transition-opacity duration-300"
+          />
+          <img
+            src="/LogoBrush.jpeg"
+            alt="Logo"
+            class="w-8 h-8 object-contain mx-auto hidden dark:block invert grayscale brightness-150 mix-blend-screen transition-opacity duration-300"
+          />
+        </template>
       </router-link>
     </div>
     <div

@@ -10,10 +10,10 @@
           <span class="absolute left-4 top-1/2 -translate-y-1/2">
             <svg class="fill-body hover:fill-primary dark:fill-bodydark dark:hover:fill-primary" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M9.16666 3.33332C5.945 3.33332 3.33332 5.945 3.33332 9.16666C3.33332 12.3883 5.945 15 9.16666 15C12.3883 15 15 12.3883 15 9.16666C15 5.945 12.3883 3.33332 9.16666 3.33332ZM1.66666 9.16666C1.66666 5.02452 5.02452 1.66666 9.16666 1.66666C13.3088 1.66666 16.6667 5.02452 16.6667 9.16666C16.6667 11.1449 15.899 12.9431 14.6548 14.2831L18.0893 17.7175C18.4147 18.043 18.4147 18.5706 18.0893 18.8961C17.7638 19.2215 17.2362 19.2215 16.9107 18.8961L13.4763 15.4616C12.2173 16.2303 10.7416 16.6667 9.16666 16.6667C5.02452 16.6667 1.66666 13.3088 1.66666 9.16666Z" fill=""/></svg>
           </span>
-          <input v-model="searchQueryTitle" type="text" placeholder="Buscar por título..." class="w-full bg-white dark:bg-boxdark pl-12 pr-4 py-3 rounded-md border-[1.5px] border-stroke dark:border-strokedark focus:border-primary focus:outline-none transition" />
+          <input v-model="searchQueryTitle" type="text" placeholder="Buscar por título..." class="w-full bg-white dark:bg-gray-dark pl-12 pr-4 py-3 rounded-md border-[1.5px] border-stroke dark:border-gray-800 dark:text-white focus:border-primary focus:outline-none transition" />
         </div>
         <div class="relative w-full sm:w-40">
-          <input v-model="searchQueryDate" type="date" class="w-full bg-white dark:bg-boxdark px-4 py-3 rounded-md border-[1.5px] border-stroke dark:border-strokedark focus:border-primary focus:outline-none transition text-sm text-gray-600 dark:text-gray-300" title="Buscar por fecha" />
+          <input v-model="searchQueryDate" type="date" class="w-full bg-white dark:bg-gray-dark px-4 py-3 rounded-md border-[1.5px] border-stroke dark:border-gray-800 focus:border-primary focus:outline-none transition text-sm text-gray-600 dark:text-gray-200" title="Buscar por fecha" />
         </div>
         <button
           @click="openModal()"
@@ -26,8 +26,8 @@
 
     <!-- Notes Grid -->
     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:gap-6">
-      <div v-for="note in filteredNotes" :key="note.id" class="rounded-lg border border-stroke bg-white shadow-sm dark:border-strokedark dark:bg-boxdark overflow-hidden flex flex-col">
-        <div class="relative w-full h-48 bg-gray-100 dark:bg-meta-4 flex items-center justify-center overflow-hidden">
+      <div v-for="note in filteredNotes" :key="note.id" class="rounded-lg border border-stroke bg-white shadow-sm dark:border-gray-800 dark:bg-gray-dark overflow-hidden flex flex-col">
+        <div class="relative w-full h-48 bg-gray-100 dark:bg-gray-900 flex items-center justify-center overflow-hidden">
           <img v-if="note.images && note.images.length > 0" :src="note.images[0]" alt="Note thumbnail" class="w-full h-full object-cover" />
           <svg v-else xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 text-gray-400">
             <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
@@ -39,8 +39,8 @@
         
         <div class="p-5 flex-1 flex flex-col">
           <h3 class="text-xl font-semibold text-black dark:text-white mb-2 line-clamp-1">{{ note.title }}</h3>
-          <p class="text-sm text-gray-500 dark:text-gray-400 line-clamp-3 mb-4 flex-1">{{ note.body }}</p>
-          <div class="mt-auto flex justify-between items-center pt-4 border-t border-stroke dark:border-strokedark">
+          <p class="text-sm text-gray-500 dark:text-gray-300 line-clamp-3 mb-4 flex-1">{{ note.body }}</p>
+          <div class="mt-auto flex justify-between items-center pt-4 border-t border-stroke dark:border-gray-800">
             <span class="text-xs text-gray-400">{{ formatDate(note.createdAt) }}</span>
             <div class="flex items-center gap-3">
               <button @click="viewNote(note)" class="text-gray-400 hover:text-primary transition-colors" title="Ver nota">
@@ -61,14 +61,14 @@
     </div>
 
     <!-- Empty State -->
-    <div v-if="filteredNotes.length === 0 && !isLoading" class="flex flex-col items-center justify-center p-10 mt-10 rounded-lg border border-stroke bg-white dark:border-strokedark dark:bg-boxdark text-center">
+    <div v-if="filteredNotes.length === 0 && !isLoading" class="flex flex-col items-center justify-center p-10 mt-10 rounded-lg border border-stroke bg-white dark:border-gray-800 dark:bg-gray-dark text-center">
       <h3 class="text-xl font-medium text-black dark:text-white mb-2">No hay notas que coincidan</h3>
-      <p class="text-gray-500 mb-6">Intenta con otra búsqueda o comienza creando tu primera nota.</p>
+      <p class="text-gray-500 dark:text-gray-400 mb-6">Intenta con otra búsqueda o comienza creando tu primera nota.</p>
     </div>
 
     <!-- Modal -->
     <div v-if="isModalOpen" class="fixed inset-0 z-[999999] flex items-center justify-center bg-black/30 backdrop-blur-md px-4">
-      <div class="w-full max-w-lg rounded-lg bg-white p-6 shadow-lg dark:bg-boxdark sm:p-8 relative">
+      <div class="w-full max-w-lg rounded-lg bg-white p-6 shadow-lg dark:bg-gray-dark border border-stroke dark:border-gray-800 sm:p-8 relative">
         <button @click="closeModal" class="absolute top-4 right-4 text-gray-500 hover:text-black dark:hover:text-white">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
         </button>
@@ -78,17 +78,17 @@
         <form @submit.prevent="saveNote">
           <div class="mb-4">
             <label class="mb-2.5 block font-medium text-black dark:text-white">Nombre de la nota <span class="text-meta-1">*</span></label>
-            <input v-model="form.title" required type="text" placeholder="Ej. Actualización importante" class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
+            <input v-model="form.title" required type="text" placeholder="Ej. Actualización importante" class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-gray-800 dark:bg-gray-900 dark:text-white dark:focus:border-primary" />
           </div>
 
           <div class="mb-4">
             <label class="mb-2.5 block font-medium text-black dark:text-white">Cuerpo de la nota <span class="text-meta-1">*</span></label>
-            <textarea v-model="form.body" required rows="5" placeholder="Escribe el contenido de la nota aquí..." class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"></textarea>
+            <textarea v-model="form.body" required rows="5" placeholder="Escribe el contenido de la nota aquí..." class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-gray-800 dark:bg-gray-900 dark:text-white dark:focus:border-primary"></textarea>
           </div>
 
           <div class="mb-6">
             <label class="mb-2.5 block font-medium text-black dark:text-white">Galería de la nota (Imágenes)</label>
-            <label class="flex flex-col items-center justify-center w-full h-32 border-2 border-stroke border-dashed rounded-lg cursor-pointer hover:bg-gray-50 dark:hover:bg-meta-4 dark:border-form-strokedark transition">
+            <label class="flex flex-col items-center justify-center w-full h-32 border-2 border-stroke border-dashed rounded-lg cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-900 dark:border-gray-800 transition">
               <div class="flex flex-col items-center justify-center pt-5 pb-6">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 mb-3 text-gray-400">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z" />
@@ -102,7 +102,7 @@
             <div v-if="filePreviews.length > 0" class="mt-4">
               <label class="mb-2.5 block text-sm font-medium text-black dark:text-white">Archivos seleccionados a subir:</label>
               <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                <div v-for="(preview, idx) in filePreviews" :key="idx" class="relative group aspect-video rounded-lg border border-stroke dark:border-strokedark overflow-hidden shadow-sm">
+                <div v-for="(preview, idx) in filePreviews" :key="idx" class="relative group aspect-video rounded-lg border border-stroke dark:border-gray-800 overflow-hidden shadow-sm">
                   <img :src="preview.url" class="w-full h-full object-cover" />
                   <button type="button" @click.prevent="removePreview(idx)" class="absolute top-1 right-1 bg-meta-1 text-white rounded-full p-1.5 opacity-0 group-hover:opacity-100 transition-opacity hover:bg-opacity-90 shadow-md">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3.5 h-3.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
@@ -115,7 +115,7 @@
           <p v-if="error" class="mb-4 text-meta-1">{{ error }}</p>
 
           <div class="flex justify-end gap-4">
-            <button type="button" @click="closeModal" class="rounded border border-stroke py-2 px-6 font-medium text-black hover:shadow-1 dark:border-strokedark dark:text-white">Cancelar</button>
+            <button type="button" @click="closeModal" class="rounded border border-stroke py-2 px-6 font-medium text-black hover:shadow-1 dark:border-gray-800 dark:text-white">Cancelar</button>
             <button type="submit" :disabled="isSaving" class="rounded bg-[#7C162A] py-2 px-6 font-medium text-white hover:bg-opacity-90 disabled:opacity-50">{{ isSaving ? 'Guardando...' : (isEditing ? 'Guardar Cambios' : 'Publicar Nota') }}</button>
           </div>
         </form>
@@ -124,16 +124,16 @@
 
     <!-- View Modal -->
     <div v-if="isViewModalOpen" class="fixed inset-0 z-[999999] flex items-center justify-center bg-black/30 backdrop-blur-md px-4">
-      <div class="w-full max-w-3xl rounded-lg bg-white p-6 shadow-lg dark:bg-boxdark sm:p-8 relative max-h-[90vh] overflow-y-auto">
+      <div class="w-full max-w-3xl rounded-lg bg-white p-6 shadow-lg dark:bg-gray-dark border border-stroke dark:border-gray-800 sm:p-8 relative max-h-[90vh] overflow-y-auto">
         <button @click="closeViewModal" class="absolute top-4 right-4 text-gray-500 hover:text-black dark:hover:text-white">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
         </button>
         <h3 class="mb-2 text-2xl font-bold text-black dark:text-white pr-8">{{ selectedNote?.title }}</h3>
         <p class="text-sm text-gray-400 mb-6">{{ formatDate(selectedNote?.createdAt) }}</p>
-        <div class="mb-8 text-black dark:text-gray-300 whitespace-pre-wrap leading-relaxed">{{ selectedNote?.body }}</div>
+        <div class="mb-8 text-black dark:text-gray-200 whitespace-pre-wrap leading-relaxed">{{ selectedNote?.body }}</div>
         
         <div v-if="selectedNote?.images && selectedNote.images.length > 0" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <img v-for="(img, idx) in selectedNote.images" :key="idx" :src="img" class="w-full rounded border border-stroke dark:border-strokedark object-cover aspect-video" />
+          <img v-for="(img, idx) in selectedNote.images" :key="idx" :src="img" class="w-full rounded border border-stroke dark:border-gray-800 object-cover aspect-video" />
         </div>
       </div>
     </div>
