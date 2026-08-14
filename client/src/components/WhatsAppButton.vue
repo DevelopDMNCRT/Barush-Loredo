@@ -1,6 +1,6 @@
 <template>
   <a
-    href="https://wa.me/5213514053079"
+    href="https://wa.me/523514053079"
     target="_blank"
     rel="noopener noreferrer"
     class="fixed bottom-6 right-6 z-50 flex items-center justify-center p-3 text-white transition-transform duration-300 bg-[#25D366] rounded-full shadow-lg hover:scale-110 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-green-300"

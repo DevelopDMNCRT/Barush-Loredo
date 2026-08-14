@@ -92,7 +92,7 @@ import { Send, MapPin, Phone, Mail } from 'lucide-vue-next';
                   </div>
                   <div>
                     <h3 class="font-bold text-xl mb-1">Teléfono</h3>
-                    <p class="text-gray-400">+52 1 351 405 3079</p>
+                    <p class="text-gray-400">52 351 405 3079</p>
                   </div>
                 </div>
                 
