@@ -34,6 +34,21 @@ export const getNotes = async (req: Request, res: Response) => {
   }
 };
 
+export const getNoteById = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  try {
+    const note = await prisma.note.findUnique({
+      where: { id: Number(id) }
+    });
+    if (!note) {
+      return res.status(404).json({ error: 'Note not found' });
+    }
+    res.json(note);
+  } catch (error) {
+    res.status(500).json({ error: 'Error fetching note' });
+  }
+};
+
 export const createNote = async (req: Request, res: Response) => {
   const { title, body } = req.body;
   const files = req.files as Express.Multer.File[];

@@ -34,7 +34,6 @@
         <table class="w-full table-auto">
           <thead>
             <tr class="border-b border-stroke text-left dark:border-strokedark">
-              <th class="min-w-[80px] py-4 px-6 font-semibold text-sm text-black dark:text-white">ID</th>
               <th class="min-w-[150px] py-4 px-6 font-semibold text-sm text-black dark:text-white">Nombre</th>
               <th class="min-w-[150px] py-4 px-6 font-semibold text-sm text-black dark:text-white">Correo</th>
               <th class="min-w-[120px] py-4 px-6 font-semibold text-sm text-black dark:text-white">Fecha</th>
@@ -44,17 +43,18 @@
           </thead>
           <tbody>
             <tr v-for="user in filteredUsers" :key="user.id" class="border-b border-stroke last:border-none dark:border-strokedark">
-              <td class="py-4 px-6">
-                <span class="inline-flex rounded-md bg-gray-100 py-1 px-3 text-sm font-medium text-gray-600 dark:bg-meta-4 dark:text-white">
-                  {{ user.id }}
-                </span>
-              </td>
               <td class="py-4 px-6 text-sm font-medium text-black dark:text-white">{{ user.name }}</td>
               <td class="py-4 px-6 text-sm text-gray-500 dark:text-gray-400">{{ user.email }}</td>
               <td class="py-4 px-6 text-sm text-gray-500 dark:text-gray-400">{{ formatDate(user.createdAt) }}</td>
               <td class="py-4 px-6 text-sm font-bold text-black dark:text-white">{{ user.role }}</td>
               <td class="py-4 px-6">
                 <div class="flex items-center justify-center space-x-3">
+                  <button @click="viewUser(user)" class="text-gray-400 hover:text-primary transition-colors" title="Ver Detalles">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                  </button>
                   <button @click="openModal(user)" class="text-gray-400 hover:text-primary transition-colors" title="Editar">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
@@ -81,18 +81,18 @@
         </button>
 
         <h3 class="mb-4 text-xl font-bold text-black dark:text-white">
-          {{ isEditing ? 'Editar Usuario' : 'Agregar Nuevo Usuario' }}
+          {{ isReadOnly ? 'Detalles del Usuario' : (isEditing ? 'Editar Usuario' : 'Agregar Nuevo Usuario') }}
         </h3>
         
         <form @submit.prevent="saveUser">
           <div class="mb-4">
-            <label class="mb-2.5 block font-medium text-black dark:text-white">Nombre <span class="text-meta-1">*</span></label>
-            <input v-model="form.name" required type="text" placeholder="Nombre completo" class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
+            <label class="mb-2.5 block font-medium text-black dark:text-white">Nombre <span v-if="!isReadOnly" class="text-meta-1">*</span></label>
+            <input v-model="form.name" :disabled="isReadOnly" required type="text" placeholder="Nombre completo" class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-not-allowed disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
           </div>
 
           <div class="mb-4">
-            <label class="mb-2.5 block font-medium text-black dark:text-white">Rol <span class="text-meta-1">*</span></label>
-            <select v-model="form.role" required class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary">
+            <label class="mb-2.5 block font-medium text-black dark:text-white">Rol <span v-if="!isReadOnly" class="text-meta-1">*</span></label>
+            <select v-model="form.role" :disabled="isReadOnly" required class="w-full h-[52px] rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-not-allowed disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary">
               <option value="" disabled>Seleccionar rol</option>
               <option value="Administrador">Administrador</option>
               <option value="Operativo">Operativo</option>
@@ -100,48 +100,53 @@
           </div>
 
           <div class="mb-4">
-            <label class="mb-2.5 block font-medium text-black dark:text-white">Correo <span class="text-meta-1">*</span></label>
-            <input v-model="form.email" required type="email" placeholder="usuario@ejemplo.com" class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
+            <label class="mb-2.5 block font-medium text-black dark:text-white">Correo <span v-if="!isReadOnly" class="text-meta-1">*</span></label>
+            <input v-model="form.email" :disabled="isReadOnly" required type="email" placeholder="usuario@ejemplo.com" class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-not-allowed disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
           </div>
 
-          <div class="mb-4">
-            <label class="mb-2.5 block font-medium text-black dark:text-white">Contraseña <span v-if="!isEditing" class="text-meta-1">*</span></label>
-            <div class="relative">
-              <input v-model="form.password" :required="!isEditing" minlength="8" :type="showPassword ? 'text' : 'password'" placeholder="Mínimo 8 caracteres" class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
-              <button type="button" @click="showPassword = !showPassword" class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-primary">
-                <svg v-if="!showPassword" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-                <svg v-else xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88" />
-                </svg>
-              </button>
+          <template v-if="!isReadOnly">
+            <div class="mb-4">
+              <label class="mb-2.5 block font-medium text-black dark:text-white">Contraseña <span v-if="!isEditing" class="text-meta-1">*</span></label>
+              <div class="relative">
+                <input v-model="form.password" :required="!isEditing" minlength="8" :type="showPassword ? 'text' : 'password'" placeholder="Mínimo 8 caracteres" class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
+                <button type="button" @click="showPassword = !showPassword" class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-primary">
+                  <svg v-if="!showPassword" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                  <svg v-else xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88" />
+                  </svg>
+                </button>
+              </div>
+              <p v-if="isEditing" class="text-sm mt-1 text-gray-500">Dejar en blanco para mantener la contraseña actual.</p>
             </div>
-            <p v-if="isEditing" class="text-sm mt-1 text-gray-500">Dejar en blanco para mantener la contraseña actual.</p>
-          </div>
 
-          <div class="mb-6">
-            <label class="mb-2.5 block font-medium text-black dark:text-white">Confirmar Contraseña <span v-if="!isEditing" class="text-meta-1">*</span></label>
-            <div class="relative">
-              <input v-model="form.confirmPassword" :required="!isEditing || form.password" minlength="8" :type="showConfirmPassword ? 'text' : 'password'" placeholder="Repite la contraseña" class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
-              <button type="button" @click="showConfirmPassword = !showConfirmPassword" class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-primary">
-                <svg v-if="!showConfirmPassword" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-                <svg v-else xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88" />
-                </svg>
-              </button>
+            <div class="mb-6">
+              <label class="mb-2.5 block font-medium text-black dark:text-white">Confirmar Contraseña <span v-if="!isEditing" class="text-meta-1">*</span></label>
+              <div class="relative">
+                <input v-model="form.confirmPassword" :required="!isEditing || form.password" minlength="8" :type="showConfirmPassword ? 'text' : 'password'" placeholder="Repite la contraseña" class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
+                <button type="button" @click="showConfirmPassword = !showConfirmPassword" class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-primary">
+                  <svg v-if="!showConfirmPassword" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                  <svg v-else xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88" />
+                  </svg>
+                </button>
+              </div>
             </div>
-          </div>
+          </template>
 
           <p v-if="error" class="mb-4 text-meta-1">{{ error }}</p>
 
           <div class="flex justify-end gap-4">
-            <button type="button" @click="closeModal" class="rounded border border-stroke py-2 px-6 font-medium text-black hover:shadow-1 dark:border-strokedark dark:text-white">Cancelar</button>
-            <button type="submit" class="rounded bg-[#7C162A] py-2 px-6 font-medium text-white hover:bg-opacity-90">Guardar Usuario</button>
+            <button v-if="isReadOnly" type="button" @click="closeModal" class="rounded bg-[#7C162A] py-2 px-6 font-medium text-white hover:bg-opacity-90">Cerrar</button>
+            <template v-else>
+              <button type="button" @click="closeModal" class="rounded border border-stroke py-2 px-6 font-medium text-black hover:shadow-1 dark:border-strokedark dark:text-white">Cancelar</button>
+              <button type="submit" class="rounded bg-[#7C162A] py-2 px-6 font-medium text-white hover:bg-opacity-90">Guardar Usuario</button>
+            </template>
           </div>
         </form>
       </div>
@@ -157,6 +162,7 @@ import AdminLayout from '../../components/layout/AdminLayout.vue'
 const users = ref<any[]>([])
 const isModalOpen = ref(false)
 const isEditing = ref(false)
+const isReadOnly = ref(false)
 const error = ref('')
 const showPassword = ref(false)
 const showConfirmPassword = ref(false)
@@ -203,6 +209,7 @@ onMounted(() => {
 
 const editUser = (user: any) => {
   isEditing.value = true
+  isReadOnly.value = false
   form.value = {
     id: user.id,
     name: user.name,
@@ -222,6 +229,7 @@ const openModal = (user: any = null) => {
     editUser(user)
   } else {
     isEditing.value = false
+    isReadOnly.value = false
     form.value = { id: null, name: '', role: '', email: '', password: '', confirmPassword: '' }
     error.value = ''
     showPassword.value = false
@@ -287,7 +295,18 @@ const saveUser = async () => {
 }
 
 const viewUser = (user: any) => {
-  alert(`Ver usuario: ${user.name}\nCorreo: ${user.email}\nRol: ${user.role}`)
+  isEditing.value = false
+  isReadOnly.value = true
+  form.value = {
+    id: user.id,
+    name: user.name,
+    role: user.role,
+    email: user.email,
+    password: '',
+    confirmPassword: ''
+  }
+  error.value = ''
+  isModalOpen.value = true
 }
 
 const deleteUser = async (id: number) => {
