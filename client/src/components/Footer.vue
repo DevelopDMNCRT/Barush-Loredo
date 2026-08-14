@@ -52,15 +52,15 @@ import { Facebook, Twitter, Instagram, Youtube, Mail, Phone, MapPin } from 'luci
                 <MapPin class="w-6 h-6" />
               </div>
               <div>
-                <h4 class="font-bold text-white mb-1">Oficina de Campaña</h4>
-                <p class="text-sm text-gray-400">Av. de la Transformación 123,<br />Col. Centro, C.P. 00000</p>
+                <h4 class="font-bold text-white mb-1">Oficina de Enlace</h4>
+                <p class="text-sm text-gray-400">Colón 202,<br />Zamora, Michoacán</p>
               </div>
             </div>
             
             <div class="flex flex-col gap-4">
               <div class="flex items-center gap-3">
                 <Phone class="w-5 h-5 text-secondary" />
-                <span class="text-gray-400 text-sm">55 1234 5678</span>
+                <span class="text-gray-400 text-sm">+52 1 351 405 3079</span>
               </div>
               <div class="flex items-center gap-3">
                 <Mail class="w-5 h-5 text-secondary" />

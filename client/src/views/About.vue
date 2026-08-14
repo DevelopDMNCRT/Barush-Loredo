@@ -20,10 +20,8 @@ import { Target, Users, BookOpen, Flag } from 'lucide-vue-next';
         <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div class="relative">
             <div class="w-full aspect-[4/5] bg-gray-300 rounded-3xl shadow-xl overflow-hidden relative">
-              <div class="absolute inset-0 bg-primary/20 mix-blend-multiply"></div>
-              <div class="w-full h-full flex items-center justify-center text-gray-500">
-                FOTO PERFIL
-              </div>
+              <div class="absolute inset-0 bg-primary/20 mix-blend-multiply pointer-events-none"></div>
+              <img src="/candidato.jpeg" alt="Lic. Edgar Barush Loredo Arizaga" class="w-full h-full object-cover object-center" />
             </div>
             <!-- Decorator -->
             <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-secondary rounded-full -z-10"></div>
