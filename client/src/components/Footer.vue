@@ -76,8 +76,8 @@ import { Facebook, Twitter, Instagram, Youtube, Mail, Phone, MapPin } from 'luci
           &copy; {{ new Date().getFullYear() }} Edgar Barush Loredo Arizaga. Todos los derechos reservados.
         </p>
         <div class="flex space-x-6 text-sm text-gray-500">
-          <a href="#" @click.prevent class="hover:text-white transition-colors">Aviso de Privacidad</a>
-          <a href="#" @click.prevent class="hover:text-white transition-colors">Términos de Uso</a>
+          <router-link to="/privacidad" class="hover:text-white transition-colors">Aviso de Privacidad</router-link>
+          <router-link to="/terminos" class="hover:text-white transition-colors">Términos de Uso</router-link>
         </div>
       </div>
     </div>

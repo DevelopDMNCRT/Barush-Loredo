@@ -5,6 +5,8 @@ import Blog from '../views/Blog.vue'
 import BlogPost from '../views/BlogPost.vue'
 import Contact from '../views/Contact.vue'
 import Report from '../views/Report.vue'
+import Privacy from '../views/Privacy.vue'
+import Terms from '../views/Terms.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -38,6 +40,16 @@ const router = createRouter({
       path: '/informe',
       name: 'informe',
       component: Report
+    },
+    {
+      path: '/privacidad',
+      name: 'privacy',
+      component: Privacy
+    },
+    {
+      path: '/terminos',
+      name: 'terms',
+      component: Terms
     },
     {
       path: '/:pathMatch(.*)*',
