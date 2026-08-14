@@ -19,7 +19,7 @@
         v-for="img in images" 
         :key="img.id" 
         @click="selectedPreviewImage = img.url"
-        class="relative group rounded-lg overflow-hidden border border-stroke bg-white shadow-sm dark:border-strokedark dark:bg-boxdark aspect-video cursor-pointer"
+        class="relative group rounded-lg overflow-hidden border border-stroke bg-white shadow-sm dark:border-gray-800 dark:bg-gray-dark aspect-video cursor-pointer"
       >
         <img :src="img.url" alt="Slider Image" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
         
@@ -45,14 +45,14 @@
     </div>
 
     <!-- Empty State -->
-    <div v-if="images.length === 0 && !isLoading" class="flex flex-col items-center justify-center p-10 mt-10 rounded-lg border border-stroke bg-white dark:border-strokedark dark:bg-boxdark text-center">
+    <div v-if="images.length === 0 && !isLoading" class="flex flex-col items-center justify-center p-10 mt-10 rounded-lg border border-stroke bg-white dark:border-gray-800 dark:bg-gray-dark text-center">
       <h3 class="text-xl font-medium text-black dark:text-white mb-2">No hay imágenes en el slider</h3>
-      <p class="text-gray-500 mb-6">Sube fotos para que aparezcan en el carrusel de la página principal.</p>
+      <p class="text-gray-500 dark:text-gray-400 mb-6">Sube fotos para que aparezcan en el carrusel de la página principal.</p>
     </div>
 
     <!-- Modal -->
     <div v-if="isModalOpen" class="fixed inset-0 z-[999999] flex items-center justify-center bg-black/30 backdrop-blur-md px-4">
-      <div class="w-full max-w-md rounded-lg bg-white p-6 shadow-lg dark:bg-boxdark sm:p-8 relative">
+      <div class="w-full max-w-md rounded-lg bg-white p-6 shadow-lg dark:bg-gray-dark border border-stroke dark:border-gray-800 sm:p-8 relative">
         <button @click="closeModal" class="absolute top-4 right-4 text-gray-500 hover:text-black dark:hover:text-white">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
         </button>
@@ -62,7 +62,7 @@
         <form @submit.prevent="saveImages">
           <div class="mb-6">
             <label class="mb-2.5 block font-medium text-black dark:text-white">Selecciona tus fotos <span class="text-meta-1">*</span></label>
-            <label class="flex flex-col items-center justify-center w-full h-32 border-2 border-stroke border-dashed rounded-lg cursor-pointer hover:bg-gray-50 dark:hover:bg-meta-4 dark:border-form-strokedark transition">
+            <label class="flex flex-col items-center justify-center w-full h-32 border-2 border-stroke border-dashed rounded-lg cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-900 dark:border-gray-800 transition">
               <div class="flex flex-col items-center justify-center pt-5 pb-6">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 mb-3 text-gray-400">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z" />
@@ -76,7 +76,7 @@
             <div v-if="filePreviews.length > 0" class="mt-4">
               <label class="mb-2.5 block text-sm font-medium text-black dark:text-white">Archivos seleccionados a subir:</label>
               <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                <div v-for="(preview, idx) in filePreviews" :key="idx" class="relative group aspect-video rounded-lg border border-stroke dark:border-strokedark overflow-hidden shadow-sm">
+                <div v-for="(preview, idx) in filePreviews" :key="idx" class="relative group aspect-video rounded-lg border border-stroke dark:border-gray-800 overflow-hidden shadow-sm">
                   <img :src="preview.url" class="w-full h-full object-cover" />
                   <button type="button" @click.prevent="removePreview(idx)" class="absolute top-1 right-1 bg-meta-1 text-white rounded-full p-1.5 opacity-0 group-hover:opacity-100 transition-opacity hover:bg-opacity-90 shadow-md">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3.5 h-3.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>

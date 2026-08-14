@@ -11,7 +11,7 @@
             v-model="searchQuery"
             type="text"
             placeholder="Buscar por nombre, usuario o ID..."
-            class="w-full rounded-md border border-stroke bg-white py-3 pl-10 pr-4 outline-none focus:border-primary dark:border-strokedark dark:bg-boxdark dark:focus:border-primary"
+            class="w-full rounded-md border border-stroke bg-white py-3 pl-10 pr-4 outline-none focus:border-primary text-gray-800 dark:text-white dark:border-gray-800 dark:bg-gray-dark dark:focus:border-primary"
           />
           <span class="absolute left-3.5 top-1/2 -translate-y-1/2">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-gray-500">
@@ -29,11 +29,11 @@
     </div>
 
     <!-- Table -->
-    <div class="rounded-lg border border-stroke bg-white shadow-sm dark:border-strokedark dark:bg-boxdark">
+    <div class="rounded-lg border border-stroke bg-white shadow-sm dark:border-gray-800 dark:bg-gray-dark">
       <div class="max-w-full overflow-x-auto">
         <table class="w-full table-auto">
           <thead>
-            <tr class="border-b border-stroke text-left dark:border-strokedark">
+            <tr class="border-b border-stroke text-left dark:border-gray-800">
               <th class="min-w-[150px] py-4 px-6 font-semibold text-sm text-black dark:text-white">Nombre</th>
               <th class="min-w-[150px] py-4 px-6 font-semibold text-sm text-black dark:text-white">Correo</th>
               <th class="min-w-[120px] py-4 px-6 font-semibold text-sm text-black dark:text-white">Fecha</th>
@@ -42,10 +42,10 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="user in filteredUsers" :key="user.id" class="border-b border-stroke last:border-none dark:border-strokedark">
+            <tr v-for="user in filteredUsers" :key="user.id" class="border-b border-stroke last:border-none dark:border-gray-800">
               <td class="py-4 px-6 text-sm font-medium text-black dark:text-white">{{ user.name }}</td>
-              <td class="py-4 px-6 text-sm text-gray-500 dark:text-gray-400">{{ user.email }}</td>
-              <td class="py-4 px-6 text-sm text-gray-500 dark:text-gray-400">{{ formatDate(user.createdAt) }}</td>
+              <td class="py-4 px-6 text-sm text-gray-500 dark:text-gray-300">{{ user.email }}</td>
+              <td class="py-4 px-6 text-sm text-gray-500 dark:text-gray-300">{{ formatDate(user.createdAt) }}</td>
               <td class="py-4 px-6 text-sm font-bold text-black dark:text-white">{{ user.role }}</td>
               <td class="py-4 px-6">
                 <div class="flex items-center justify-center space-x-3">
@@ -75,7 +75,7 @@
 
     <!-- Modal -->
     <div v-if="isModalOpen" class="fixed inset-0 z-[999999] flex items-center justify-center bg-black/30 backdrop-blur-md px-4">
-      <div class="w-full max-w-md rounded-lg bg-white p-6 shadow-default dark:bg-boxdark max-h-[90vh] overflow-y-auto relative">
+      <div class="w-full max-w-md rounded-lg bg-white p-6 shadow-default dark:bg-gray-dark max-h-[90vh] overflow-y-auto relative border border-stroke dark:border-gray-800">
         <button @click="closeModal" class="absolute top-4 right-4 text-gray-500 hover:text-black dark:hover:text-white">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
         </button>
@@ -87,12 +87,12 @@
         <form @submit.prevent="saveUser">
           <div class="mb-4">
             <label class="mb-2.5 block font-medium text-black dark:text-white">Nombre <span v-if="!isReadOnly" class="text-meta-1">*</span></label>
-            <input v-model="form.name" :disabled="isReadOnly" required type="text" placeholder="Nombre completo" class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-not-allowed disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
+            <input v-model="form.name" :disabled="isReadOnly" required type="text" placeholder="Nombre completo" class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-not-allowed disabled:bg-whiter dark:border-gray-800 dark:bg-gray-900 dark:text-white dark:focus:border-primary" />
           </div>
 
           <div class="mb-4">
             <label class="mb-2.5 block font-medium text-black dark:text-white">Rol <span v-if="!isReadOnly" class="text-meta-1">*</span></label>
-            <select v-model="form.role" :disabled="isReadOnly" required class="w-full h-[52px] rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-not-allowed disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary">
+            <select v-model="form.role" :disabled="isReadOnly" required class="w-full h-[52px] rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-not-allowed disabled:bg-whiter dark:border-gray-800 dark:bg-gray-900 dark:text-white dark:focus:border-primary">
               <option value="" disabled>Seleccionar rol</option>
               <option value="Administrador">Administrador</option>
               <option value="Operativo">Operativo</option>
@@ -101,14 +101,14 @@
 
           <div class="mb-4">
             <label class="mb-2.5 block font-medium text-black dark:text-white">Correo <span v-if="!isReadOnly" class="text-meta-1">*</span></label>
-            <input v-model="form.email" :disabled="isReadOnly" required type="email" placeholder="usuario@ejemplo.com" class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-not-allowed disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
+            <input v-model="form.email" :disabled="isReadOnly" required type="email" placeholder="usuario@ejemplo.com" class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-not-allowed disabled:bg-whiter dark:border-gray-800 dark:bg-gray-900 dark:text-white dark:focus:border-primary" />
           </div>
 
           <template v-if="!isReadOnly">
             <div class="mb-4">
               <label class="mb-2.5 block font-medium text-black dark:text-white">Contraseña <span v-if="!isEditing" class="text-meta-1">*</span></label>
               <div class="relative">
-                <input v-model="form.password" :required="!isEditing" minlength="8" :type="showPassword ? 'text' : 'password'" placeholder="Mínimo 8 caracteres" class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
+                <input v-model="form.password" :required="!isEditing" minlength="8" :type="showPassword ? 'text' : 'password'" placeholder="Mínimo 8 caracteres" class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-gray-800 dark:bg-gray-900 dark:text-white dark:focus:border-primary" />
                 <button type="button" @click="showPassword = !showPassword" class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-primary">
                   <svg v-if="!showPassword" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
@@ -125,7 +125,7 @@
             <div class="mb-6">
               <label class="mb-2.5 block font-medium text-black dark:text-white">Confirmar Contraseña <span v-if="!isEditing" class="text-meta-1">*</span></label>
               <div class="relative">
-                <input v-model="form.confirmPassword" :required="!isEditing || form.password" minlength="8" :type="showConfirmPassword ? 'text' : 'password'" placeholder="Repite la contraseña" class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
+                <input v-model="form.confirmPassword" :required="!isEditing || form.password" minlength="8" :type="showConfirmPassword ? 'text' : 'password'" placeholder="Repite la contraseña" class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-gray-800 dark:bg-gray-900 dark:text-white dark:focus:border-primary" />
                 <button type="button" @click="showConfirmPassword = !showConfirmPassword" class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-primary">
                   <svg v-if="!showConfirmPassword" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
