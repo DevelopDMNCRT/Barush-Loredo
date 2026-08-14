@@ -1,9 +1,53 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { Newspaper, Calendar } from 'lucide-vue-next';
 
+interface Note {
+  id: number;
+  title: string;
+  body: string;
+  images: string[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+const notes = ref<Note[]>([]);
+const isLoading = ref(true);
 const currentPage = ref(1);
-const totalPages = ref(3);
+const ITEMS_PER_PAGE = 9;
+
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5005';
+
+const totalPages = computed(() => Math.max(1, Math.ceil(notes.value.length / ITEMS_PER_PAGE)));
+
+const paginatedNotes = computed(() => {
+  const start = (currentPage.value - 1) * ITEMS_PER_PAGE;
+  return notes.value.slice(start, start + ITEMS_PER_PAGE);
+});
+
+const formatDate = (dateStr: string) => {
+  if (!dateStr) return '';
+  const date = new Date(dateStr);
+  return new Intl.DateTimeFormat('es-MX', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric'
+  }).format(date);
+};
+
+const fetchNotes = async () => {
+  isLoading.value = true;
+  try {
+    const res = await fetch(`${API_URL}/api/notes`);
+    if (res.ok) {
+      notes.value = await res.json();
+    }
+  } catch (err) {
+    console.error('Error fetching notes:', err);
+  } finally {
+    isLoading.value = false;
+  }
+};
 
 const goToPage = (page: number) => {
   if (page >= 1 && page <= totalPages.value) {
@@ -11,6 +55,10 @@ const goToPage = (page: number) => {
     window.scrollTo({ top: 300, behavior: 'smooth' });
   }
 };
+
+onMounted(() => {
+  fetchNotes();
+});
 </script>
 
 <template>
@@ -31,13 +79,38 @@ const goToPage = (page: number) => {
     <!-- Blog Grid -->
     <section class="py-20 px-4">
       <div class="max-w-7xl mx-auto">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          
-          <!-- Post 1 -->
-          <article class="bg-white rounded-2xl shadow-lg overflow-hidden group hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+        
+        <!-- Loading State -->
+        <div v-if="isLoading" class="flex justify-center items-center py-20">
+          <div class="animate-spin rounded-full h-12 w-12 border-4 border-primary border-t-transparent"></div>
+        </div>
+
+        <!-- Empty State -->
+        <div v-else-if="notes.length === 0" class="text-center py-20 bg-white rounded-2xl shadow-sm border border-gray-200">
+          <Newspaper class="w-16 h-16 mx-auto text-gray-300 mb-4" />
+          <h3 class="text-2xl font-bold text-gray-700 mb-2">No hay comunicados publicados aún</h3>
+          <p class="text-gray-500">Pronto se actualizarán las últimas noticias e informaciones del proyecto.</p>
+        </div>
+
+        <!-- Dynamic Notes List (3 Cols x 3 Rows = 9 items per page) -->
+        <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <router-link 
+            v-for="note in paginatedNotes" 
+            :key="note.id"
+            :to="'/blog/' + note.id"
+            class="block bg-white rounded-2xl shadow-lg overflow-hidden group hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer"
+          >
             <div class="w-full aspect-video bg-gray-200 relative overflow-hidden">
               <div class="absolute inset-0 bg-primary/20 group-hover:bg-transparent transition-colors z-10"></div>
-              <div class="w-full h-full flex items-center justify-center text-gray-500 font-bold text-xl">IMAGEN NOTICIA</div>
+              <img 
+                v-if="note.images && note.images.length > 0" 
+                :src="note.images[0]" 
+                :alt="note.title" 
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              />
+              <div v-else class="w-full h-full flex items-center justify-center text-gray-400 font-bold text-xl">
+                BARUSH LOREDO
+              </div>
             </div>
             <div class="p-6">
               <div class="flex items-center gap-4 mb-3">
@@ -45,79 +118,21 @@ const goToPage = (page: number) => {
                   Comunicado
                 </span>
                 <span class="text-gray-400 text-sm flex items-center gap-1 font-medium">
-                  <Calendar class="w-4 h-4" /> 15 Oct, 2026
+                  <Calendar class="w-4 h-4" /> {{ formatDate(note.createdAt) }}
                 </span>
               </div>
-              <h2 class="text-xl font-bold text-dark mb-3 group-hover:text-primary transition-colors">
-                Multitudinario recibimiento en la zona huasteca del estado
+              <h2 class="text-xl font-bold text-dark mb-3 group-hover:text-primary transition-colors line-clamp-2">
+                {{ note.title }}
               </h2>
-              <p class="text-gray-600 mb-6 line-clamp-3">
-                Ante más de 10,000 simpatizantes, refrendamos nuestro compromiso con los pueblos originarios y su desarrollo con justicia.
+              <p class="text-gray-600 line-clamp-3">
+                {{ note.body }}
               </p>
-              <router-link to="/blog/1" class="text-primary font-bold hover:text-secondary transition-colors inline-flex items-center gap-2">
-                Leer artículo completo <Newspaper class="w-4 h-4" />
-              </router-link>
             </div>
-          </article>
-
-          <!-- Post 2 -->
-          <article class="bg-white rounded-2xl shadow-lg overflow-hidden group hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
-            <div class="w-full aspect-video bg-gray-200 relative overflow-hidden">
-              <div class="absolute inset-0 bg-primary/20 group-hover:bg-transparent transition-colors z-10"></div>
-              <div class="w-full h-full flex items-center justify-center text-gray-500 font-bold text-xl">IMAGEN NOTICIA</div>
-            </div>
-            <div class="p-6">
-              <div class="flex items-center gap-4 mb-3">
-                <span class="text-xs font-bold bg-primary/10 text-primary px-3 py-1 rounded-full uppercase tracking-wider">
-                  Propuesta
-                </span>
-                <span class="text-gray-400 text-sm flex items-center gap-1 font-medium">
-                  <Calendar class="w-4 h-4" /> 10 Oct, 2026
-                </span>
-              </div>
-              <h2 class="text-xl font-bold text-dark mb-3 group-hover:text-primary transition-colors">
-                Presentación del Plan Hídrico para garantizar el agua
-              </h2>
-              <p class="text-gray-600 mb-6 line-clamp-3">
-                No podemos seguir con la privatización disfrazada. El agua es un derecho humano y nuestra administración invertirá para que llegue a todos los hogares.
-              </p>
-              <router-link to="/blog/1" class="text-primary font-bold hover:text-secondary transition-colors inline-flex items-center gap-2">
-                Leer artículo completo <Newspaper class="w-4 h-4" />
-              </router-link>
-            </div>
-          </article>
-
-          <!-- Post 3 -->
-          <article class="bg-white rounded-2xl shadow-lg overflow-hidden group hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
-            <div class="w-full aspect-video bg-gray-200 relative overflow-hidden">
-              <div class="absolute inset-0 bg-primary/20 group-hover:bg-transparent transition-colors z-10"></div>
-              <div class="w-full h-full flex items-center justify-center text-gray-500 font-bold text-xl">IMAGEN NOTICIA</div>
-            </div>
-            <div class="p-6">
-              <div class="flex items-center gap-4 mb-3">
-                <span class="text-xs font-bold bg-secondary/20 text-secondary px-3 py-1 rounded-full uppercase tracking-wider">
-                  Recorrido
-                </span>
-                <span class="text-gray-400 text-sm flex items-center gap-1 font-medium">
-                  <Calendar class="w-4 h-4" /> 5 Oct, 2026
-                </span>
-              </div>
-              <h2 class="text-xl font-bold text-dark mb-3 group-hover:text-primary transition-colors">
-                Visita a los tianguistas de la capital: "La economía se hace desde abajo"
-              </h2>
-              <p class="text-gray-600 mb-6 line-clamp-3">
-                Escuchando de primera mano las necesidades de los comerciantes que día a día mueven la economía de nuestro estado con su trabajo honrado.
-              </p>
-              <router-link to="/blog/1" class="text-primary font-bold hover:text-secondary transition-colors inline-flex items-center gap-2">
-                Leer artículo completo <Newspaper class="w-4 h-4" />
-              </router-link>
-            </div>
-          </article>
-
+          </router-link>
         </div>
         
         <!-- Interactive Pagination -->
-        <div class="mt-16 flex justify-center">
+        <div v-if="totalPages > 1" class="mt-16 flex justify-center">
           <nav class="flex items-center gap-2">
             <button 
               @click="goToPage(currentPage - 1)" 
@@ -140,8 +155,6 @@ const goToPage = (page: number) => {
             >
               {{ page }}
             </button>
-
-            <span class="px-2 text-gray-500">...</span>
 
             <button 
               @click="goToPage(currentPage + 1)"

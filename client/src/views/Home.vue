@@ -1,5 +1,44 @@
 <script setup lang="ts">
+import { ref, onMounted } from 'vue';
 import { ArrowRight, Newspaper } from 'lucide-vue-next';
+
+interface Note {
+  id: number;
+  title: string;
+  body: string;
+  images: string[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+const latestNotes = ref<Note[]>([]);
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5005';
+
+const formatDate = (dateStr: string) => {
+  if (!dateStr) return '';
+  const date = new Date(dateStr);
+  return new Intl.DateTimeFormat('es-MX', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  }).format(date);
+};
+
+const fetchLatestNotes = async () => {
+  try {
+    const res = await fetch(`${API_URL}/api/notes`);
+    if (res.ok) {
+      const data: Note[] = await res.json();
+      latestNotes.value = data.slice(0, 2);
+    }
+  } catch (err) {
+    console.error('Error fetching latest notes for Home:', err);
+  }
+};
+
+onMounted(() => {
+  fetchLatestNotes();
+});
 </script>
 
 <template>
@@ -50,7 +89,7 @@ import { ArrowRight, Newspaper } from 'lucide-vue-next';
     </section>
 
     <!-- Latest News -->
-    <section class="py-20 bg-white">
+    <section v-if="latestNotes.length > 0" class="py-20 bg-white">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-end mb-12">
           <div>
@@ -63,43 +102,35 @@ import { ArrowRight, Newspaper } from 'lucide-vue-next';
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <!-- Article 1 -->
-          <router-link to="/blog" class="flex flex-col sm:flex-row gap-6 group cursor-pointer">
+          <router-link 
+            v-for="note in latestNotes" 
+            :key="note.id" 
+            :to="'/blog/' + note.id" 
+            class="flex flex-col sm:flex-row gap-6 group cursor-pointer border border-gray-100 rounded-2xl p-4 hover:shadow-lg transition-all duration-300"
+          >
             <div class="w-full sm:w-1/3 aspect-video sm:aspect-square bg-gray-200 rounded-xl overflow-hidden relative flex-shrink-0">
-               <div class="absolute inset-0 bg-primary/20 group-hover:bg-transparent transition-colors z-10"></div>
-               <div class="w-full h-full flex items-center justify-center text-gray-400">IMAGEN</div>
+               <div class="absolute inset-0 bg-primary/10 group-hover:bg-transparent transition-colors z-10"></div>
+               <img 
+                 v-if="note.images && note.images.length > 0" 
+                 :src="note.images[0]" 
+                 :alt="note.title" 
+                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+               />
+               <div v-else class="w-full h-full flex items-center justify-center text-gray-400 font-bold">
+                 BARUSH LOREDO
+               </div>
             </div>
             <div class="flex flex-col justify-center">
               <span class="text-secondary font-bold text-sm mb-2 uppercase flex items-center gap-1">
                 <Newspaper class="w-4 h-4"/> Comunicado
               </span>
-              <h3 class="text-xl font-bold text-dark mb-3 group-hover:text-primary transition-colors">
-                Recorrido exitoso por las comunidades del sur del estado
+              <h3 class="text-xl font-bold text-dark mb-3 group-hover:text-primary transition-colors line-clamp-2">
+                {{ note.title }}
               </h3>
-              <p class="text-gray-600 mb-4 line-clamp-2">
-                Miles de ciudadanos se sumaron este fin de semana a las asambleas informativas sobre nuestro proyecto de nación.
+              <p class="text-gray-600 mb-4 line-clamp-2 text-sm">
+                {{ note.body }}
               </p>
-              <span class="text-sm text-gray-500 font-medium">15 Octubre, 2026</span>
-            </div>
-          </router-link>
-
-          <!-- Article 2 -->
-          <router-link to="/blog" class="flex flex-col sm:flex-row gap-6 group cursor-pointer">
-            <div class="w-full sm:w-1/3 aspect-video sm:aspect-square bg-gray-200 rounded-xl overflow-hidden relative flex-shrink-0">
-               <div class="absolute inset-0 bg-primary/20 group-hover:bg-transparent transition-colors z-10"></div>
-               <div class="w-full h-full flex items-center justify-center text-gray-400">IMAGEN</div>
-            </div>
-            <div class="flex flex-col justify-center">
-              <span class="text-secondary font-bold text-sm mb-2 uppercase flex items-center gap-1">
-                <Newspaper class="w-4 h-4"/> Propuestas
-              </span>
-              <h3 class="text-xl font-bold text-dark mb-3 group-hover:text-primary transition-colors">
-                Presentamos nuestro plan integral de infraestructura
-              </h3>
-              <p class="text-gray-600 mb-4 line-clamp-2">
-                Con inversión histórica y sin deuda pública, garantizaremos mejores caminos rurales y conectividad regional.
-              </p>
-              <span class="text-sm text-gray-500 font-medium">10 Octubre, 2026</span>
+              <span class="text-xs text-gray-500 font-medium">{{ formatDate(note.createdAt) }}</span>
             </div>
           </router-link>
         </div>
