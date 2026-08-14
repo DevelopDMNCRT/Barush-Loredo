@@ -53,7 +53,7 @@ import { Facebook, Twitter, Instagram, Youtube, Mail, Phone, MapPin } from 'luci
               </div>
               <div>
                 <h4 class="font-bold text-white mb-1">Oficina de Enlace</h4>
-                <p class="text-sm text-gray-400">Colón 202,<br />Zamora, Michoacán</p>
+                <p class="text-sm text-gray-400">Cristobal Colón Poniente #202,<br />col Centro, CP 59653, Zamora Mich.</p>
               </div>
             </div>
             
@@ -64,7 +64,7 @@ import { Facebook, Twitter, Instagram, Youtube, Mail, Phone, MapPin } from 'luci
               </div>
               <div class="flex items-center gap-3">
                 <Mail class="w-5 h-5 text-secondary" />
-                <span class="text-gray-400 text-sm">contacto@candidato.mx</span>
+                <span class="text-gray-400 text-sm">contacto@barushloredo.com</span>
               </div>
             </div>
           </div>

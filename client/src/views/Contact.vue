@@ -82,7 +82,7 @@ import { Send, MapPin, Phone, Mail } from 'lucide-vue-next';
                   </div>
                   <div>
                     <h3 class="font-bold text-xl mb-1">Oficina Enlace</h3>
-                    <p class="text-gray-400">Colón 202,<br/>Zamora, Michoacán</p>
+                    <p class="text-gray-400">Cristobal Colón Poniente #202,<br/>col Centro, CP 59653, Zamora Mich.</p>
                   </div>
                 </div>
                 
@@ -102,7 +102,7 @@ import { Send, MapPin, Phone, Mail } from 'lucide-vue-next';
                   </div>
                   <div>
                     <h3 class="font-bold text-xl mb-1">Correo Electrónico</h3>
-                    <p class="text-gray-400">contacto@candidato.mx</p>
+                    <p class="text-gray-400">contacto@barushloredo.com</p>
                   </div>
                 </div>
               </div>

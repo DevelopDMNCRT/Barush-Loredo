@@ -20,7 +20,7 @@ import { ShieldCheck } from 'lucide-vue-next';
         <div>
           <h2 class="text-2xl font-bold text-primary mb-4">1. Identidad y Domicilio del Responsable</h2>
           <p>
-            Edgar Barush Loredo Arizaga, con domicilio de enlace en Colón 202, Zamora, Michoacán (en adelante, "el Responsable"), es responsable de recabar sus datos personales, del uso que se le dé a los mismos y de su protección, en cumplimiento con la Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP) de México.
+            Edgar Barush Loredo Arizaga, con domicilio de enlace en Cristobal Colón Poniente #202, col Centro, CP 59653, Zamora Mich. (en adelante, "el Responsable"), es responsable de recabar sus datos personales, del uso que se le dé a los mismos y de su protección, en cumplimiento con la Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP) de México.
           </p>
         </div>
 
